@@ -1,0 +1,315 @@
+package com.capgemini.beans;
+
+public class Account {
+
+    private int accountNumber;
+    private int amount;
+    public  int getAccountNumber() {
+        return accountNumber;
+    }
+    public  void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+    public int getAmount() {
+        return amount;
+    }
+    public  void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + accountNumber;
+        result = prime * result + amount;
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Account other = (Account) obj;
+        if (accountNumber != other.accountNumber)
+            return false;
+        if (amount != other.amount)
+            return false;
+        return true;
+    }
+    
+    
+    
+}
+----------------------------------------------------------------------------------------
+
+
+package com.capgemini.repo;
+
+import com.capgemini.beans.Account;
+
+public interface AccountRepo {
+
+    boolean save(Account account);
+
+    Account searchAccount(int accountNumber);
+    int updateBalance(int amount);
+    
+
+}
+-----------------------------------------------------------------------------------------
+
+
+package com.capgemini.service;
+
+import com.capgemini.beans.Account;
+import com.capgemini.exceptions.*;
+import com.capgemini.repo.AccountRepo;
+import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+
+public class AccountServiceImpl implements AccountService{
+    AccountRepo accountRepo;
+
+    public AccountServiceImpl(AccountRepo accountRepo) {
+        super();
+        this.accountRepo = accountRepo;
+    }
+    
+    @Override
+    public Account createAccount(int accountNumber, int amount) throws InsufficientOpeningBalanceException {
+        
+        if(amount < 500){
+            throw new InsufficientOpeningBalanceException();
+        }
+        
+        Account account = new Account();
+        account.setAccountNumber(accountNumber); 
+         account.setAmount(amount); 
+         if(accountRepo.save(account))
+         {
+             return account;
+         }
+        
+        
+        return null;
+    }
+    
+    
+
+    public boolean isaccountExist(int accountNumber) throws InvalidAccountNumberException {
+
+        Account accountFound=accountRepo.searchAccount(accountNumber);
+        return accountFound == null ? false : true;
+        
+    }
+    
+    
+    
+        
+
+    @Override
+    public int depositAmount(int accountNumber, int amount) throws InvalidAccountNumberException{
+        int updatedAmount = 0;
+            if(isaccountExist(accountNumber)){
+                updatedAmount = accountRepo.updateBalance(amount);
+                updatedAmount = amount + accountRepo.searchAccount(accountNumber).getAmount();
+                
+                
+            }
+            else{
+                throw new InvalidAccountNumberException();
+            }
+    
+           return updatedAmount;
+    }   
+      
+   
+    
+      
+    @Override
+    public int  withDrawAmount(int accountNumber, int amount) throws InvalidAccountNumberException,InsufficientBalanceException{
+        int updatedAmount = 0;
+    
+            if(isaccountExist(accountNumber)){
+            
+            updatedAmount =  accountRepo.searchAccount(accountNumber).getAmount()- amount;
+            if(updatedAmount < 0){
+                throw new InsufficientBalanceException();
+            }
+            
+        }
+        else{
+            throw new InvalidAccountNumberException();
+        }
+    
+        return updatedAmount;
+    }
+    
+    
+    
+    }
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+package com.capgemini.test;
+import com.capgemini.beans.Account;
+import com.capgemini.exceptions.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import static org.junit.Assert.assertEquals; 
+import static org.mockito.Mockito.when; 
+import com.capgemini.repo.AccountRepo;
+import com.capgemini.service.AccountService;
+import com.capgemini.service.AccountServiceImpl;
+
+public class AccountServiceImplTest {
+
+    /*@Before
+    public void setUp() throws Exception {
+    }
+
+    @Test
+    public void test() {
+        fail("Not yet implemented");
+    }*/
+    @Mock
+    AccountRepo accountRepo;
+    
+    AccountService accountService;
+    
+    
+    @Before
+    public void setUp() throws Exception{
+        MockitoAnnotations.initMocks(this); 
+        accountService = new AccountServiceImpl(accountRepo); 
+        
+    }   
+        
+        
+         
+            /* 
+             * create account 
+             * 1.when the amount is less than 500 then system should throw exception 
+             * 2.when the valid info is passed account should be created successfully 
+             */ 
+
+
+@Test(expected=com.capgemini.exceptions.InsufficientOpeningBalanceException.class)
+  public void whenTheAmountIsLessThan500SystemShouldThrowException() throws InsufficientOpeningBalanceException
+    { 
+        accountService.createAccount(101, 400); 
+    } 
+
+
+
+
+    @Test 
+    public void whenTheValidInfoIsPassedAccountShouldBeCreatedSuccessfully() throws InsufficientOpeningBalanceException 
+    { 
+        Account account =new Account(); 
+        account.setAccountNumber(101); 
+        account.setAmount(5000); 
+        when(accountRepo.save(account)).thenReturn(true); 
+        assertEquals(account, accountService.createAccount(101, 5000)); 
+    } 
+        
+           /* Deposit amount
+            1.Invalid Account Number Exception
+            2.when the valid info is passed amount should be deposited successfully*/
+    
+    
+    
+    
+
+@Test(expected=com.capgemini.exceptions.InvalidAccountNumberException.class)
+  public void whenTheAccountIsInvalid() throws InvalidAccountNumberException
+    { 
+        accountService.depositAmount(105, 400); 
+    } 
+    
+ 
+        
+
+
+
+    @Test 
+    public void whenTheValidInfoIsPassedAmountMustBeDepositedSuccessfully() throws InvalidAccountNumberException 
+    { 
+        Account account = new Account();
+        
+        account.setAccountNumber(102); 
+        account.setAmount(5000); 
+        when(accountRepo.searchAccount(account.getAccountNumber())).thenReturn(account);
+        assertEquals(5500, accountService.depositAmount(102, 500)); 
+    } 
+    
+
+                               /*Withdraw amount
+                               1. Invalid Account Number Exception
+                               2. InsufficientBalance Exception
+                               3. successful withdraw
+                              */
+    @Test 
+    public void whenTheValidInfoIsPassedAmountMustBeWithDrawnSuccessfully() throws InvalidAccountNumberException,InsufficientBalanceException 
+    { 
+        Account account = new Account();
+        
+        account.setAccountNumber(101); 
+        account.setAmount(5000); 
+        
+        
+
+    
+        
+        
+        
+        when(accountRepo.searchAccount(account.getAccountNumber())).thenReturn(account);
+        assertEquals(4500, accountService.withDrawAmount(101, 500)); 
+    } 
+    
+    
+    
+
+@Test(expected=com.capgemini.exceptions.InsufficientBalanceException.class)
+  public void whenTheBalanceisInsufficient() throws InvalidAccountNumberException, InsufficientBalanceException
+    { 
+
+    Account account = new Account();
+    
+    account.setAccountNumber(101); 
+    account.setAmount(5000); 
+    when(accountRepo.searchAccount(account.getAccountNumber())).thenReturn(account);
+    assertEquals(4500, accountService.withDrawAmount(101, 6000)); 
+    
+    
+    
+    
+    
+        
+    } 
+
+@Test(expected=com.capgemini.exceptions.InvalidAccountNumberException.class)
+  public void whenTheAccountIsInvalidNumber() throws InvalidAccountNumberException, InsufficientBalanceException
+    { 
+        accountService.withDrawAmount(105, 400); 
+    }
+    
+    
+        
+    }
+    
+-------------------------------------------------------------------------------
+
+
+
+
