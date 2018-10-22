@@ -1,0 +1,364 @@
+com.cg.mra.beans
+Account.java
+
+
+package com.cg.mra.beans;
+
+public class Account {
+    private String accountType;
+    private String customerName;
+    private double accountBalance;
+    public Account(String accountType, String customerName, int accountBalance) {
+        // TODO Auto-generated constructor stub
+        this.accountType = accountType;
+        this.customerName = customerName;
+        this.accountBalance = accountBalance;
+    }
+    public Account() {
+        // TODO Auto-generated constructor stub
+    }
+    public String getAccountType() {
+        return accountType;
+    }
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+    public String getCustomerName() {
+        return customerName;
+    }
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+    public double getAccountBalance() {
+        return accountBalance;
+    }
+    public void setAccountBalance(double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
+}
+
+
+com.cg.mra.dao
+AccountDao.java
+
+package com.cg.mra.dao;
+
+import com.cg.mra.beans.Account;
+
+public interface AccountDao {
+    Account getAccountDetails(String mobileNo);
+    double rechargeAccount(String mobileno, double rechargeAmount);
+}
+
+
+
+
+AccountDaoImpl.java
+
+package com.cg.mra.dao;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.cg.mra.beans.Account;
+
+public class AccountDaoImpl implements AccountDao{
+    
+    Map<String,Account> accountEntry;
+    
+    
+    
+
+    public AccountDaoImpl() {
+        accountEntry = new HashMap<>();
+        accountEntry.put("9010210131", new Account("Prepaid","Vaishali",200));
+        accountEntry.put("9823920123", new Account("Prepaid","Megha",453));
+        accountEntry.put("9932012345", new Account("Prepaid","Vikas",631));
+        accountEntry.put("9010210132", new Account("Prepaid","Anju",521));
+        accountEntry.put("9010210133", new Account("Prepaid","Tushar",632));
+        
+    }
+
+    @Override
+    public Account getAccountDetails(String mobileNo) {
+        // TODO Auto-generated method stub
+        
+        return accountEntry.get(mobileNo);
+    }
+
+    @Override
+    public double rechargeAccount(String mobileno, double rechargeAmount) {
+        // TODO Auto-generated method stub
+        //Account r = accountEntry.get(rechargeAmount);
+        
+        return rechargeAmount;
+    }
+
+}
+
+
+
+com.cg.mra.exception
+MobileRechargeException.java
+
+package com.cg.mra.exception;
+
+public class MobileRechargeException extends Exception {
+    public MobileRechargeException(String msg){
+        super(msg);
+    }
+
+}
+
+
+
+com.cg.mra.service
+AccountService.java
+package com.cg.mra.service;
+
+import com.cg.mra.beans.Account;
+import com.cg.mra.exception.MobileRechargeException;
+
+public interface AccountService {
+    
+    Account getAccountDetails(String mobileNo);
+    double rechargeAccount(String mobileno, double rechargeAmount);
+    
+    public boolean validateMobileNo(String mobileNo)throws MobileRechargeException;
+    
+    public boolean validateRechargeAmount(Double rechargeAmount)
+            throws MobileRechargeException;
+    
+
+}
+
+
+AccountServiceImpl.java
+
+
+package com.cg.mra.service;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.cg.mra.beans.Account;
+import com.cg.mra.dao.AccountDao;
+import com.cg.mra.dao.AccountDaoImpl;
+import com.cg.mra.exception.MobileRechargeException;
+
+public class AccountServiceImpl implements AccountService{
+    AccountDao dao;
+    
+    public AccountServiceImpl() {
+        super();
+        // TODO Auto-generated constructor stub
+        dao = new AccountDaoImpl();
+    }
+
+    @Override
+    public Account getAccountDetails(String mobileNo) {
+        // TODO Auto-generated method stub
+        return dao.getAccountDetails(mobileNo);
+    }
+
+    @Override
+    public double rechargeAccount(String mobileno, double rechargeAmount) {
+        // TODO Auto-generated method stub
+        
+        return rechargeAmount;
+    }
+
+    @Override
+    public boolean validateMobileNo(String mobileNo)
+            throws MobileRechargeException {
+        // TODO Auto-generated method stub
+        if(mobileNo == null)
+            throw new MobileRechargeException("Null value found");
+        Pattern p = Pattern.compile("[6789][0-9]{9}");
+        Matcher m = p.matcher(mobileNo);
+        return m.matches();
+    }
+
+    @Override
+    public boolean validateRechargeAmount(Double rechargeAmount)
+            throws MobileRechargeException {
+        // TODO Auto-generated method stub
+        if(rechargeAmount == null)
+            throw new MobileRechargeException("Null value found");
+        String ra = rechargeAmount.toString();
+        return (ra.matches("\\d{2,9}\\.\\d{0,4}"));
+    }
+
+    
+    
+    
+    
+
+
+    
+
+}
+
+
+
+com.cg.mra.test
+TestClass.java
+
+package com.cg.mra.test;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.cg.mra.exception.MobileRechargeException;
+import com.cg.mra.service.AccountService;
+import com.cg.mra.service.AccountServiceImpl;
+
+
+
+public class TestClass {
+    AccountService service = new AccountServiceImpl();
+    boolean result;
+    @Test(expected=MobileRechargeException.class)
+    public void test_validateMobileNo_Null()throws MobileRechargeException{
+        result = service.validateMobileNo(null);
+        
+    }
+    
+    @Test
+    public void test_ValidateMobileNo_v1()throws MobileRechargeException{
+        result = service.validateMobileNo("0123456789");
+        Assert.assertEquals(false, result);
+        
+    }
+    
+    
+    @Test
+    public void test_ValidateMobileNo_v2()throws MobileRechargeException{
+        result = service.validateMobileNo("8912434354dsf");
+        Assert.assertEquals(false, result);
+        
+    }
+    
+    @Test
+    public void test_ValidateMobileNo_v3()throws MobileRechargeException{
+        result = service.validateMobileNo("8978063079");
+        Assert.assertEquals(true, result);
+        
+    }
+    
+    
+    @Test(expected=MobileRechargeException.class)
+    public void test_ValidateRechargeAmount_Null()throws MobileRechargeException{
+        result = service.validateRechargeAmount(null);
+        Assert.assertEquals(false, result);
+    }
+    
+    
+    @Test
+    public void test_ValidateSalary_v1()throws MobileRechargeException{
+        result = service.validateRechargeAmount(250.0);
+        Assert.assertEquals(true, result);
+    }
+    
+    @Test
+    public void test_ValidateSalary_v2()throws MobileRechargeException{
+        result = service.validateRechargeAmount(250000000000.0);
+        Assert.assertEquals(false, result);
+    }
+    
+    @Test
+    public void test_ValidateSalary_v3()throws MobileRechargeException{
+        result = service.validateRechargeAmount(2.0);
+        Assert.assertEquals(false, result);
+    }
+
+    @Test
+    public void test_ValidateSalary_v4()throws MobileRechargeException{
+        result = service.validateRechargeAmount(250.436750);
+        Assert.assertEquals(false, result);
+    }
+    
+
+}
+
+
+
+com.cg.mra.ui
+MainUI.java
+
+
+package com.cg.mra.ui;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import com.cg.mra.beans.Account;
+import com.cg.mra.service.AccountService;
+import com.cg.mra.service.AccountServiceImpl;
+
+
+
+public class MainUI {
+    
+    public static void main(String args[]) {
+        AccountService service = new AccountServiceImpl();
+        Scanner sc = new Scanner(System.in);
+        Account account = new Account();
+        int ch = 0;
+        do{
+        System.out.println("\nEnter Choice :\n");
+        System.out.println("1. Get Account Details :\n");
+        System.out.println("2. Recharge Account :\n");
+        System.out.println("3. Exit\n");
+        ch = sc.nextInt();
+        switch(ch) {
+        case 1:
+            System.out.println("Enter Mobile No:");
+            String mobileno = sc.next();
+            
+            account = service.getAccountDetails(mobileno);
+            if(account == null)
+                System.out.println("ERROR: Given Account Id Does Not Exists");
+            else{
+                
+                    
+                    System.out.println("Your Current Balance is Rs." +account.getAccountBalance());
+                }
+            
+                break;
+        case 2:
+            System.out.println("Enter Mobile No:");
+            mobileno = sc.next();
+            System.out.println("Enter Recharge Amount");
+            double rechargeAmount = sc.nextDouble();
+            account = service.getAccountDetails(mobileno);
+            double recharge = service.rechargeAccount(mobileno, rechargeAmount);
+            if(account == null){
+                System.out.println("ERROR: Cannot Recharge Account as Given Mobile No Does Not Exists");
+            }
+            else{
+                account.setAccountBalance(account.getAccountBalance()+recharge);
+                System.out.println("Your Account Recharged Successfully");
+                System.out.println("Hello "+account.getCustomerName() + ","+"Available Balance is "+account.getAccountBalance());
+                
+            }
+            break;
+        case 3:
+            exit(0);
+           break;
+            
+            }
+        
+            
+        }while(ch!=3);
+        
+    }
+
+    private static String exit(int i) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+}
+
