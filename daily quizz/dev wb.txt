@@ -1,0 +1,96 @@
+Q. PMD can generate reports in which of the following formats?
+1). .html files
+2). .txt file
+3). .csv files
+4). All of the above
+Solution :
+option [4] is correct
+
+Q. Setting.xml file is used to configure which of the following things?
+1). server authentication and passwords
+2). Parent Artifacts.
+3). HTTP proxy server.
+4). Project dependency.
+Solution :
+option [1,3] are correct
+
+Q. Which of the following tool is cross  platform?
+1). Make
+2). Jam
+3). Ant
+4). None of these
+Solution :
+option [3] is correct
+
+Q. In which of the following phase pom.xml is parsed to check, that the project is correct and all 
+necessary information is available?
+1). validate
+2). compile
+3). package 
+4). test
+Solution :
+option [1] is correct
+
+Q. A developer executing the below command to package the artifact and install the same in local repository.
+
+mvn install
+
+If one of the test case fails, then what will happen?
+1). Packaged artifact will get installed in local repository successfully
+2). Package creation and installation will not happen since test case fails. Only "Build Failure" message will get printed
+3). Package will get created successfully but installation fails
+4). Packaged artifact will get installed in remote repository successfully
+Solution :
+option [2] is correct
+
+Q. Which of the following plugin is used for Integration testing?
+1). Surefire plugin
+2). Failsafe plugin
+3). Junit plugin
+4). Jtesting plugin
+Solution :
+option [2] is correct
+
+Q. Divya issued the below maven command.
+
+mvn install
+
+Select the list of build life phases invoked in the respective order while executing the above command.
+
+1. deploy
+2. verify
+3. validate
+4. test
+5. compile
+6. package
+7. install
+1). 3, 5, 4, 6, 7
+2). 3, 5, 4, 6, 7, 2, 1
+3). 2, 3, 5, 4, 6, 7
+4). 3, 5, 6, 7, 4
+Solution :
+option [1] is correct
+
+Q. Which of the following are true regarding PMD?
+1). Can be used to detect dead code
+2). PMD is a testing tool
+3). Can be used to detect duplicate code
+4). All of the above are true
+Solution :
+option [1,3] are correct
+
+Q. Which of the following statements is not true about a maven plugin?
+1). A plugin is a logical grouping of related goals.
+2). Plugins reduces the repetitive tasks. 
+3). Plugins are configured in pom.xml file.
+4). Plugins cannot be reused.
+Solution :
+option [4] is correct
+
+Q. Which of the following is true about PMD?
+1). PMD violations have 2 levels of severity - Error, Warning
+2). It is not possible to create your own rulesets with PMD
+3). PMD can be integrated only with eclipse
+4). None of these
+Solution :
+option [4] is correct

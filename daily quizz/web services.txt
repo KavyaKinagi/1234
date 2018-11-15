@@ -1,0 +1,116 @@
+Q. Select the most appropriate application area where a web service can be used:
+1). An application area could be ordering a book from flipcart
+2). An application area could be doing a payment transaction between Business to Business applications
+3). An application area could be viewing a specific category of books from flipcart
+4). All above
+Solution :
+option [4] is correct
+
+Q. State whether True or False: 
+
+Statement 1: Web services support communication between various programming languages. 
+Statement 2: Web services are available anywhere and on any device.
+1). Both statements are false
+2). Both statements are true
+3). Only Statement 1 is true
+4). Only Statement 2 is true
+Solution :
+option [2] is correct
+
+Q. What is the use of @FormParam annotation?
+1). Used to bind the URI to a Java method
+2). Used to bind Java method return type with the response that would be generated
+3). Used to bind Java method return type to HTML form parameters
+4). Used to bind HTML form parameters value to a Java method parameters
+Solution :
+option [4] is correct
+
+Q. State whether True or False: 
+
+Statement 1: WSDL defines the structure of Web Services. 
+Statement 2: SOAP enables exchange of messages between web service provider and consumer.
+1). Only Statement 2 is true
+2). Both statements are false
+3). Both statements are true
+4). Only Statement 1 is true
+Solution :
+option [3] is correct
+
+Q. What does @WebService annotation indicate ?
+1). @WebService is an annotation to pull a web service end point
+2). @WebService annotation will be used to publish a web service
+3). @WebService annotation will be used to consume a web service
+4). @WebService annotation defines a web service end point
+Solution :
+option [4] is correct
+
+Q. What is the <type> element implication in WSDL?
+1). <type> defines the data-types of the elements whether simple or complex
+2). <type> defines the data-types only for simple element
+3). <type> defines the data-types only for complex element
+4). There is no <type> element in WSDL
+Solution :
+option [1] is correct
+
+Q. Match the following:
+
+1. ______Symbolizes to retrieve the resources
+2. ________Symbolizes to create a resource
+3. ________Symbolizes to delete a resource
+4. ________Symbolizes to modify a resource
+1). 1. @PUT                        
+2. @POST                            
+3. @DELETE                                
+4. @GET  
+2). 1.  @GET                          
+2. @POST                            
+3. @DELETE                                
+4. @PUT
+3). 1. @GET                          
+2. @PUT                        
+3. @DELETE                                
+4. @POST
+4). 1. @POST                        
+2. @GET                          
+3. @DELETE                                
+4. @PUT
+Solution :
+option [2] is correct
+
+Q. What does the following URL indicate ? 
+
+http://127.0.0.1:9876/cs
+1). http: port 
+127.0.0.1: machine name where web service is published 
+9876: default listener port number for web services 
+cs : arbitary name for the web service
+2). http: protocol 
+127.0.0.1: IP address of machine where web service is published 
+9876: port number 
+cs : arbitary name for the web service
+3). http: IP address 
+127.0.0.1: protocol of machine where web service is published 
+9876: port number 
+cs : arbitary name for the web service
+4). URL given is in incorrect format
+Solution :
+option [2] is correct
+
+Q. State whether True or False:
+
+Statement 1: '@Path annotaion can be used on class level in a POJO class
+Statement 2: '@Path annotaion can be used on method level in a POJO class
+1). Both statements are false
+2). Only Statement 1 is true
+3). Both statements are true
+4). Both statements are contradicting with each other
+Solution :
+option [3] is correct
+
+Q. Why RESTful web services are easier to work with?
+1). RESTful web services are easier to work with, as resources can be identified by URIs.
+2). RESTful web services are easier to work with, as resources cannot be accessed via HTTP
+3). RESTful web services are easier to work with, as resources can be accessed via SOAP
+4). RESTful web services are easier to work with, as resources can be accessed by user-defined messaging formats
+Solution :
+option [1] is correct

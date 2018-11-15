@@ -1,0 +1,101 @@
+Q. Which of the following are HttpSession methods?       
+1). getSessionId()
+2). getMaxInactiveInterval()
+3). invalidate()
+4). isNew()
+Solution :
+option [2,3,4] are correct
+
+Q. Consider the following method cookie.setValue (String newvalue);
+Which of the following are valid values for a cookie?          
+1). IGATE Global Solutions
+2). guest@igate.com
+3). (IGATE)
+4). IGATE
+Solution :
+option [4] is correct
+
+Q. What does the method getSession (true) do?          
+1). It will return session object if a session exists
+2). It will create a new session object if a session does not exist
+3). It will return null if a session does not exist
+4). It will always create a new session object irrespective of whether a session exists or not
+Solution :
+option [1,2] are correct
+
+Q. Fill in the blank in the following code snippet that retrieves all the session data:
+
+HttpSession session = request.getSession(); 
+Enumeration enum = session._____________
+while(enum.hasMoreElements()){
+   String name = (String) enum.nextElement();
+   out.println(name + ":" + session.____________ + "<BR>");
+}
+1). getAttributeNames( ); getAttributeName( )
+2). getAttributeNames( ); getAttribute(name)
+3). getValueNames( ); getValue( )
+4). getValueNames( ); getValue(name)
+Solution :
+option [2] is correct
+
+Q. Which of the following are true about Session timeout?
+
+1. Session time out specified in web.xml is in minutes
+2. Session time out specified programmatically is in seconds 
+1). Both 1 & 2
+2). Only 1
+3). Only 2
+4). None of these
+Solution :
+option [1] is correct
+
+Q. Which of the following are true about session management using servlets?        
+1). URL Rewriting leads to network traffic 
+2). URL Rewriting can be disabled by client
+3). HttpSession  object by default uses cookies to manage session
+4). cookies are stored on server-side hence secure
+Solution :
+option [1,3] are correct
+
+Q. The extra information included in the URL in case of URL rewriting can be in the form of:          
+1). extra path information
+2). additional parameters
+3). server specific URL
+4). All of the above
+Solution :
+option [4] is correct
+
+Q. Which of the session tracking method works only for a sequence of dynamically generated forms?
+1). URL Rewriting
+2). Hidden Form Fields 
+3). Cookie
+4). User Authentication 
+Solution :
+option [2] is correct
+
+Q. Given:
+
+getServletContext().setAttribute("name","igatepatni");
+
+What is the proper syntax to retriev 'name' attribute in another servlet? 
+1). String name;
+name=application.getAttribute("name");
+
+2). String name;
+name=getServletContext().getAttribute("name")
+
+3). String name;
+name=(String)getServletContext().setAttribute("name")
+
+4). Any of the above
+
+Solution :
+option [3] is correct
+
+Q. Which of the following constructor/method is the valid way of creating a new cookie?    
+1). Cookie (String name, String value)
+2). Cookie (String name)
+3). Cookie (String value)
+4). addCookie (Cookie cookie)
+Solution :
+option [1] is correct

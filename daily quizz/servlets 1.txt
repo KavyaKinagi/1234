@@ -1,0 +1,150 @@
+Q. Match the following: 
+
+a.getParameter()                     
+b.getParameterNames()           
+c.getParameterValues()          
+
+i. String[]
+ii. String
+iii. Enumarator
+1). a.i
+b.ii
+c.iii
+2). a.ii
+b.i
+c.iii
+3). a.ii
+b.iii
+c.i
+4). a.i
+b.iii
+c.ii
+Solution :
+option [3] is correct
+
+Q. The HTTP request headers 'accept' specifies ______.          
+1). Information about client software
+2). MIME types that client accepts
+3).  language(s) that client can receive
+4). encoding format that client can use
+Solution :
+option [2] is correct
+
+Q. Which of the following methods in an HttpServlet should be overridden if required?
+
+1)init()
+2)service(HttpServletRequest,HttpServletResponse)
+3)destroy()
+4)doGet(HttpServletRequest,HttpServletResponse)        
+1). 1,2,3
+2). 1,3,4
+3). 2,3,4
+4). 1,2,4
+Solution :
+option [2] is correct
+
+Q. Given:
+
+ i. load the servlet class
+ii. init()
+iii. destroy()
+iv. service()
+ v. instantiate 
+
+Life cycle of Servlet, arrange it in proper order of execution.   
+1). i, ii, iv, iii, v
+2). i, v, ii, iv,iii
+3). v, i, ii, iv,iii
+4). i,v,iv,ii,iii
+Solution :
+option [2] is correct
+
+Q. ______ method returns the extra path information translated to a real file system path.         
+1). HttpServletRequest.getPathTranslated( ) 
+2). HttpServletRequest.getPathInfo( )
+3). HttpServletRequest.getParameterValues
+4). None of the above
+Solution :
+option [1] is correct
+
+Q. Which is the correct annotation to define a servlet initialization parameter?        
+1). @WebServlet(
+  urlPatterns = { "/DemoServlet" }, 
+  initParamaters = { 
+    @WebInitParam( name = "length", value = "10"), 
+    @WebInitParam(name = "breadth", value = "20")
+  })
+
+2). @WebServlet(
+  urlPatterns = { "/DemoServlet" }, 
+  initParam = { 
+    @WebInitParams((name = "length", value = "10"), 
+(name = "breadth", value = "20")
+  })
+
+3). @WebServlet(
+  urlPatterns = { "/DemoServlet" }, 
+  initParams = { 
+    @WebInitParam( "length",  "10"), 
+    @WebInitParam( "breadth", "20")
+  })
+
+4). @WebServlet(
+  urlPatterns = { "/DemoServlet" }, 
+  initParams ={ ("length", "10"), 
+ ("breadth","20")
+  }
+  })
+
+Solution :
+option [1] is correct
+
+Q. When using HTML forms which of the folowing is true for POST method?  
+1). POST allows users to bookmark URLs with parameters. 
+2). The POST method should not be used when large amount of data needs to be transferred
+3). POST allows secure data transmission over the http method.
+4). POST method sends data as payload, in the body of the request
+Solution :
+option [4] is correct
+
+Q. Fill in the blanks to complete following:
+
+public class DemoServlet extends HttpServlet {
+  public void doGet(HttpServletRequest req, HttpServletResponse res)
+                      throws ServletException, IOException {
+       res.setContentType("text/plain");
+        ___________ out = res.getWriter();
+        Enumeration headernames = req.getHeaderNames();
+        while (headernames.___________) {
+              String name = (String) headernames.nextElement();
+              String value = req.________
+              if (value != null) 
+                  out.println(name + ": " + value);
+         }
+  }
+1). PrintWriter, hasMoreElements();, getHeader(name);
+2). getRemoteHost();,getRemoteAddr();,getRemoteAddres();
+3). StringBuffer, hasNextElement(), getValue()
+4). PrintWriter, hasNext();, getParameter(name);
+Solution :
+option [1] is correct
+
+Q. The getParameter() method belongs to _______.           
+1). Servlet
+2). ServletRequest
+3). ServletResponse
+4). All of the above
+Solution :
+option [2] is correct
+
+Q. What does the following code do? 
+
+<FORM action="/EchoServlet" ENCTYPE="multipart/form-data" method="post">
+       .................. 
+<INPUT name="file" type="file">
+1). Allows to upload file of any type
+2). Allows to download file of any type
+3). Allows to select a file type
+4).  All of the above
+Solution :
+option [1] is correct

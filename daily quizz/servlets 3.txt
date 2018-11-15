@@ -1,0 +1,152 @@
+Q. Which of the following statements are true for a Servlet Filter?          
+1). One filter can be associated with only one servlet
+2). One filter can be associated with more than one servlet
+3). The order of elements in web.xml should be filter, filter-mapping, servlet & servlet-mapping
+4). The order of elements in web.xml should be servlet, servlet-mapping, filter, filter-mapping
+Solution :
+option [2,3] are correct
+
+Q. Given:
+
+public class MyFilter   ____1____  Filter
+{
+
+  public void init(____2____)
+  {
+  }
+
+  public void doFilter(___3___,____4___,____5___)
+  {
+  }
+
+  public void destroy()
+  {
+  }
+}
+
+
+a. extends
+b. implements
+c. FilterConfig
+d. ServletConfig
+e. ServletRequest
+f. HttpServletRequest
+g. ServletResponse
+h. HttpServletResponse
+i. FilterChain
+j. SevletChain
+
+Which of the following match properly completes the syntax of above code snippet?      
+1). 1.a
+2.d
+3.f
+4.h
+5.i
+
+2). 1.b
+2.c
+3.f
+4.h
+5.j
+
+3). 1.b
+2.c
+3.e
+4.g
+5.i
+
+4). 1.b
+2.d
+3.e
+4.g
+5.j
+
+Solution :
+option [3] is correct
+
+Q. To invoke a web components available on the server you must use ___________ object.          
+1). ServletContext
+2). RequestDispatcher
+3). Session
+4). ServletRequest
+Solution :
+option [2] is correct
+
+Q. Which of the following statements are false about a ServletContext instance?           
+1). It is ideal for placing resources that need to be used by many different parts of a Web Application 
+during any given time.
+
+2). Objects bound to a ServletContext object will not be garbage collected until the ServletContext is 
+removed from use, usually when the Web Application is turned off or restarted. 
+
+3). Placing large amounts of unused objects in application scope does not tax a server's resources.
+
+4). There can exist multiple ServletContexts for one web application
+
+Solution :
+option [3,4] are correct
+
+Q. Which of the following method of ServletContext returns a servlet wrapped with a RequestDispatcher object?
+1). getNamedDispatcher()
+2). getRequestDispatcher()
+3). getServletDispatcher()
+4). getDispatcher()
+Solution :
+option [1] is correct
+
+Q. Which of the given method is used to set the age of cookie?
+1). setAge()
+2). setMaxInterval()
+3). setMaxAge()
+4). setValue()
+Solution :
+option [3] is correct
+
+Q. What is wrong with the following code?
+
+public void doFilter(ServletRequest req, ServletResponse, res,
+FilterChain chain)
+throws ServletException, IOException {
+chain.doFilter(req, res);
+HttpServletRequest request = (HttpServletRequest)req;
+HttpSession session = request.getSession();
+if (session.getAttribute("login") == null) {
+session.setAttribute("login"”, new Login());
+}
+}
+1). The doFilter() method signature is incorrect; it should take HttpServletRequest and HttpServletResponse.
+2). The doFilter() method should also throw FilterException
+3). The call to chain.doFilter(req, res) should be this: doFilter(req, res, chain).
+4). Accessing the request after chain.doFilter() results in an IllegalState-Exception
+5). Nothing is wrong with this filter.
+Solution :
+option [3] is correct
+
+Q. Which of the following is not a lifecycle method of a Servlet Filter?          
+1). init( )
+2). service( )
+3). doFilter( )
+4). destroy( )
+Solution :
+option [2] is correct
+
+Q. A servlet can be accessed in two different ways: via a regular HTTP request from a client, 
+or via a javax.servlet.RequestDispatcher. Which of the following statements is correct?             
+1). A dispatched request does not contain any request parameters (unless the calling 
+     servlet explicitly includes them). 
+2). There is no difference between the two options; the request dispatcher initiates 
+     a new client request.
+3). A request dispatched via RequestDispatcher usually shares the request parameters 
+     of the original request.
+4). A RequestDispatcher can access Servlets and resources that are not directly 
+     accessible via a client request.
+Solution :
+option [3,4] are correct
+
+Q. How to maintain global time out for all sessions?
+1). HttpSession.logout(time)
+2). HttpSession.setInterval(time)
+3). HttpSession.setMaxInactiveInterval(time)
+4). HttpSession.setInactiveInterval(time)
+Solution :
+option [3] is correct
